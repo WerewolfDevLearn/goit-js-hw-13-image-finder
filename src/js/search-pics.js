@@ -34,6 +34,10 @@ function galleryRender() {
       if (hits.length !== 0) {
         console.log(hits);
         injectMarkup(hits);
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
       } else {
         baseInfo();
       }
