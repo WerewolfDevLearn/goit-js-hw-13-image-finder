@@ -4,8 +4,8 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 export function baseInfo() {
   info({
-    title: 'Too many countries',
-    text: 'Your query is wide. Add more letters to the searchfild',
+    title: 'Not found',
+    text: 'There is no such pictures on your request!',
   });
 }
 export function baseAlert() {

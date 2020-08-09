@@ -1,2 +1,3 @@
+import './reset.css';
 import './styles.css';
-import './js/search-country.js';
+import './js/search-pics.js';
