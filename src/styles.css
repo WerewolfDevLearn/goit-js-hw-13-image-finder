@@ -72,6 +72,9 @@ ul {
   height: 50px;
   font-family: 'Ubuntu';
 }
+.button-hidden {
+  display: none;
+}
 .search-form-container {
   padding-top: 20px;
   padding-bottom: 100px;

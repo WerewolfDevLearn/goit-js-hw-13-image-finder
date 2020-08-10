@@ -6,17 +6,16 @@ const debounce = require('debounce');
 const refs = {
   input: document.querySelector('#search-form'),
   output: document.querySelector('.gallery'),
-  button: document.querySelector('.button'),
+  button: document.querySelector('button[data-action="load-more"]'),
 };
-refs.button.addEventListener('click', () => {
-  galleryRender();
-});
 
 const inputSearchQuery = refs.input.addEventListener(
   'input',
   debounce(() => {
     api.query = refs.input.elements.query.value;
     refs.output.innerHTML = '';
+    api.resetPage();
+    buttonDiactivation();
     galleryRender();
   }, 500),
 );
@@ -26,13 +25,17 @@ function injectMarkup(hits) {
   if (markup !== undefined) {
     refs.output.insertAdjacentHTML('beforeend', markup);
   }
+  if (hits.length < 12) {
+    buttonDiactivation();
+  } else {
+    buttonActivation();
+  }
 }
 
 function galleryRender() {
   if (api.query !== '') {
     api.fetchPictures().then(hits => {
       if (hits.length !== 0) {
-        console.log(hits);
         injectMarkup(hits);
         window.scrollTo({
           top: document.documentElement.scrollHeight,
@@ -43,4 +46,16 @@ function galleryRender() {
       }
     });
   }
+}
+
+function buttonActivation() {
+  refs.button.classList.remove('button-hidden');
+  refs.button.classList.add('button');
+  refs.button.addEventListener('click', galleryRender);
+}
+
+function buttonDiactivation() {
+  refs.button.classList.remove('button');
+  refs.button.classList.add('button-hidden');
+  refs.button.removeEventListener('click', galleryRender);
 }
